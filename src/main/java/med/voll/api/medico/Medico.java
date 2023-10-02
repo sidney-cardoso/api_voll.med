@@ -32,6 +32,6 @@ public class Medico {
                 this.email = dados.email();
                 this.crm = dados.crm();
                 this.especialidade = dados.especialidade();
-                this.endereco = new Endereco();
+                this.endereco = dados.endereco();
         }
 }
