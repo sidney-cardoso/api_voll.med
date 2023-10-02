@@ -9,10 +9,10 @@ import med.voll.api.medico.DadosMedico;
 
 @RestController
 @RequestMapping("/medicos")
-public class Medico {
+public class MedicoController {
 
     @PostMapping
     public void cadastrar(@RequestBody DadosMedico dados) {
-        System.out.println(dados);
+
     }
 }
