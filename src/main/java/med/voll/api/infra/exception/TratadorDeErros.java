@@ -12,7 +12,7 @@ import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
-    @RestControllerAdvice
+@RestControllerAdvice
 public class TratadorDeErros {
 
     @ExceptionHandler(EntityNotFoundException.class)
@@ -27,7 +27,7 @@ public class TratadorDeErros {
     }
 
     @ExceptionHandler(HttpMessageNotReadableException.class)
-    public ResponseEntity tratarErro400(HttpMessageNotReadableException ex) {
+    public ResponseEntity tratarErroValidacao(HttpMessageNotReadableException ex) {
         return ResponseEntity.badRequest().body(ex.getMessage());
     }
 
