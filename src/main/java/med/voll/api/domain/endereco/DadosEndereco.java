@@ -22,4 +22,15 @@ public record DadosEndereco(
         String uf,
         String complemento) {
 
+    public DadosEndereco(DadosEndereco dados) {
+        this(
+                dados.logradouro,
+                dados.bairro(),
+                dados.cep,
+                dados.numero(),
+                dados.cidade(),
+                dados.uf(),
+                dados.complemento()
+        );
+    }
 }
