@@ -15,7 +15,7 @@ public record DadosMedico(
         String email,
 
         @NotBlank(message = "Campo crm deve ser preenchido!")
-        @Pattern(regexp = "\\d{4,6}")
+        @Pattern(regexp = "\\d{4,10}")
         String crm,
 
         @NotBlank(message = "Campo telefone deve ser preenchido!")
