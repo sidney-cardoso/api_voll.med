@@ -24,31 +24,34 @@ public class PacienteController {
 
     @PostMapping
     @Transactional
-    public ResponseEntity cadastrar(@RequestBody @Valid DadosPaciente dados, UriComponentsBuilder uriBuilder) {
+    public ResponseEntity<DadosCompletosPaciente> cadastrar(@RequestBody @Valid DadosPaciente dados,
+            UriComponentsBuilder uriBuilder) {
         var paciente = new Paciente(dados);
         repository.save(paciente);
 
         var uri = uriBuilder.path("/pacientes/{id}").buildAndExpand(paciente.getId()).toUri();
         return ResponseEntity.created(uri).body(new DadosCompletosPaciente(paciente));
     }
+
     @GetMapping
-    public ResponseEntity<Page<DadosListagemPaciente>> listar(@PageableDefault(size = 10, sort = {"nome"}) Pageable paginacao) {
+    public ResponseEntity<Page<DadosListagemPaciente>> listar(
+            @PageableDefault(size = 10, sort = { "nome" }) Pageable paginacao) {
         var page = repository.findAllByStatusTrue(paginacao).map(DadosListagemPaciente::new);
         return ResponseEntity.ok(page);
     }
 
     @PutMapping
     @Transactional
-    public ResponseEntity atualizar(@RequestBody @Valid DadosAtualizacaoPaciente dados) {
+    public ResponseEntity<DadosCompletosPaciente> atualizar(@RequestBody @Valid DadosAtualizacaoPaciente dados) {
         var paciente = repository.getReferenceById(dados.id());
         paciente.atualizarInformacoes(dados);
 
-        return  ResponseEntity.ok(new DadosCompletosPaciente(paciente));
+        return ResponseEntity.ok(new DadosCompletosPaciente(paciente));
     }
 
     @DeleteMapping("/{id}")
     @Transactional
-    public ResponseEntity remover(@PathVariable Long id) {
+    public ResponseEntity<DadosCompletosPaciente> remover(@PathVariable Long id) {
         var paciente = repository.getReferenceById(id);
         paciente.inativar();
 
